@@ -82,6 +82,7 @@ cpuflags=
 	--enable-swresample \
 	\
 	\
+	--enable-libjxl \
 	\
 	--enable-filter=overlay \
 	--enable-filter=equalizer \
