@@ -12,6 +12,12 @@ mkdir -p deps && cd deps
 # dav1d
 [ ! -d dav1d ] && git clone --depth 1 --branch $v_dav1d https://code.videolan.org/videolan/dav1d.git dav1d
 
+# libjxl
+[ ! -d libjxl ] && git clone https://github.com/libjxl/libjxl
+
+# brotli
+[ ! -d brotli ] && git clone https://github.com/google/brotli.git 
+
 # ffmpeg
 [ ! -d ffmpeg ] && git clone --depth 1 --branch n$v_ffmpeg https://github.com/FFmpeg/FFmpeg.git ffmpeg
 
