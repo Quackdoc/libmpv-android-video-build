@@ -68,7 +68,7 @@ setup_prefix () {
 
 	# meson wants to be spoonfed this file, so create it ahead of time
 	# also define: release build, static libs and no source downloads at runtime(!!!)
-	cat >"$prefix_dir/crossfile.txt" <<CROSSFILE
+	cat >"$prefix_dir/crossfile.tmp" <<CROSSFILE
 [built-in options]
 buildtype = 'release'
 default_library = 'static'
@@ -77,7 +77,7 @@ wrap_mode = 'nodownload'
 c = '$CC'
 cpp = '$CXX'
 ar = '$AR'
-strip = '$ndk_triple-strip'
+strip = 'llvm-strip'
 pkgconfig = 'pkg-config'
 [host_machine]
 system = 'android'
@@ -85,6 +85,12 @@ cpu_family = '$cpu_family'
 cpu = '${CC%%-*}'
 endian = 'little'
 CROSSFILE
+# also avoid rewriting it needlessly
+	if cmp -s "$prefix_dir"/crossfile.{tmp,txt}; then
+		rm "$prefix_dir/crossfile.tmp"
+	else
+		mv "$prefix_dir"/crossfile.{tmp,txt}
+	fi
 }
 
 build () {
